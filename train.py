@@ -188,7 +188,7 @@ with tf.Session() as sess:
         if epoch == 0:
             # train_data.reset()  # rewind the iterator back to 0 to do one full epoch
             if args.load_params:
-                ckpt_file = args.save_dir + '/params_' + 'Montezuma + '.ckpt'
+                ckpt_file = args.save_dir + '/params_' + 'Montezuma' + '.ckpt'
                 print('restoring parameters from', ckpt_file)
                 saver.restore(sess, ckpt_file)
             else:
@@ -207,6 +207,7 @@ with tf.Session() as sess:
             feed_dict.update({tf_lr: lr})
             l,_ = sess.run([bits_per_dim, optimizer], feed_dict)
             train_losses.append(l)
+            print(l)
         train_loss_gen = np.mean(train_losses)
 
         # log progress to console
@@ -225,5 +226,5 @@ with tf.Session() as sess:
             plotting.plt.close('all')
             np.savez(os.path.join(args.save_dir,'Montezuma_sample%d.npz' % (epoch)), sample_x)
             # save params
-            saver.save(sess, args.save_dir + '/params_' + 'Montezuma + '.ckpt')
-            np.savez(args.save_dir + '/test_bpd_' + 'Montezuma + '.npz')
+            saver.save(sess, args.save_dir + '/params_' + 'Montezuma' + '.ckpt')
+            np.savez(args.save_dir + '/test_bpd_' + 'Montezuma' + '.npz')
